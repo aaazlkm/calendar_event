@@ -1,4 +1,4 @@
-# calendar_kit
+# calendar_event
 
 A new Flutter package.
 
