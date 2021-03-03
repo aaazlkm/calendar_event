@@ -13,16 +13,8 @@ EventPositionMap<Event> createEventPositionMap<Event>({
 }) {
   final eventPositionMap = EventPositionMap<Event>(maxEventDrawnCountVertically: maxEventDrawnCountVertically);
   final weekDateRange = DateRange.range(start: weekDays.first.dateTime, end: weekDays.last.dateTime);
-  final weekEvents = events.where((event) => weekDateRange.isInRange(event.dateRange));
-  final weekEventRange = weekEvents.where((event) => event.dateRange.isRange).toList()
-    ..sort(
-      (a, b) => b.dateRange.diff.compareTo(a.dateRange.diff),
-    );
-  final weekEventDay = weekEvents.where((event) => event.dateRange.isDay).toList()
-    ..sort(
-      (a, b) => a.dateRange.start.millisecondsSinceEpoch.compareTo(b.dateRange.start.millisecondsSinceEpoch),
-    );
-  for (final event in weekEventRange + weekEventDay) {
+  final eventsInWeek = events.where((event) => weekDateRange.isInRange(event.dateRange));
+  for (final event in eventsInWeek) {
     final startDate = weekDateRange.isInDate(event.dateRange.start) ? event.dateRange.start : weekDateRange.start;
     final endDate = weekDateRange.isInDate(event.dateRange.end) ? event.dateRange.end : weekDateRange.end;
     final startPositionX = startDate.difference(weekDateRange.start).inDays;
