@@ -118,7 +118,7 @@ class CalendarMonthView<Event> extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: SizedBox(
               height: dayTextHeight,
-              child: dayTextBuilder?.call(context, day) ?? Center(child: Text(day.dateTime.day.toString())),
+              child: Center(child: dayTextBuilder?.call(context, day) ?? Text(day.dateTime.day.toString())),
             ),
           ),
         ],
