@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 @immutable
 class Holiday {
   const Holiday({
-    @required this.name,
-    @required this.dateRange,
+    required this.name,
+    required this.dateRange,
   });
 
   final String name;

@@ -3,11 +3,10 @@ import 'package:calendar_event/src/model/calendar_event.dart';
 import 'package:calendar_event/src/model/eventmap/event_line.dart';
 import 'package:calendar_event/src/model/eventmap/horizontal_line.dart';
 import 'package:calendar_event/src/model/eventmap/position.dart';
-import 'package:flutter/cupertino.dart';
 
 class EventPositionMap<Event> {
   EventPositionMap({
-    @required this.maxEventDrawnCountVertically,
+    required this.maxEventDrawnCountVertically,
   });
 
   final int maxEventDrawnCountVertically;
@@ -19,7 +18,7 @@ class EventPositionMap<Event> {
   List<EventLine<Event>> get eventLines => _eventLines;
 
   void putEventIfAbsent(CalendarEvent<Event> event, int startPositionX, int eventWidth) {
-    final horizontalLine = _calculateDrawableLineOrNull(startPositionX, eventWidth);
+    final horizontalLine = _calculateDrawableLine(startPositionX, eventWidth);
     if (horizontalLine != null) {
       final eventLine = EventLine<Event>(horizontalLine: horizontalLine, event: event);
       _putEvent(eventLine);
@@ -27,7 +26,7 @@ class EventPositionMap<Event> {
   }
 
   /// 描画できない場合、nullを返す
-  HorizontalLine _calculateDrawableLineOrNull(int startPositionX, int eventWidth) {
+  HorizontalLine? _calculateDrawableLine(int startPositionX, int eventWidth) {
     for (final positionY in List.generate(maxEventDrawnCountVertically, (i) => i)) {
       final canDrawableEvent = _canDrawableEvent(eventWidth, startPositionX, positionY);
       if (canDrawableEvent) {

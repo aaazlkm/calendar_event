@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 @immutable
 class HorizontalLine {
   HorizontalLine({
-    @required this.start,
-    @required this.end,
+    required this.start,
+    required this.end,
   }) : assert(start.x <= end.x && start.y == end.y, 'must be from.x <= to.x & equal y position');
 
   final Position start;

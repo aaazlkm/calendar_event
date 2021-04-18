@@ -3,13 +3,11 @@ import 'package:calendar_event/src/ex/date_time_ex.dart';
 import 'package:calendar_event/src/model/calendar_event.dart';
 import 'package:calendar_event/src/model/day/day.dart';
 import 'package:calendar_event/src/model/eventmap/event_position_map.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 EventPositionMap<Event> createEventPositionMap<Event>({
-  @required List<Day> weekDays,
-  @required List<CalendarEvent<Event>> events,
-  @required int maxEventDrawnCountVertically,
+  required List<Day> weekDays,
+  required List<CalendarEvent<Event>> events,
+  required int maxEventDrawnCountVertically,
 }) {
   final eventPositionMap = EventPositionMap<Event>(maxEventDrawnCountVertically: maxEventDrawnCountVertically);
   final weekDateRange = DateRange.range(start: weekDays.first.dateTime, end: weekDays.last.dateTime);

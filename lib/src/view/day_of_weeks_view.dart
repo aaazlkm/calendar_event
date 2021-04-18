@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class DayOfWeeksView extends StatelessWidget {
   const DayOfWeeksView({
-    @required this.startDayOfWeek,
+    required this.startDayOfWeek,
     this.dayOfWeekTextBuilder,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final DayOfWeek startDayOfWeek;
 
-  final DayOfWeekTextBuilder dayOfWeekTextBuilder;
+  final DayOfWeekTextBuilder? dayOfWeekTextBuilder;
 
   @override
   Widget build(BuildContext context) => Row(
@@ -44,5 +44,4 @@ String _getDayOfWeekText(DayOfWeek dayOfWeek) {
     case DayOfWeek.saturday:
       return 'sat';
   }
-  throw AssertionError('unknown type: $dayOfWeek');
 }

@@ -7,9 +7,9 @@ import 'package:flutter/foundation.dart';
 @immutable
 class Day {
   const Day({
-    @required this.dateTime,
-    @required this.holidays,
-    @required this.dayInCalendarState,
+    required this.dateTime,
+    required this.holidays,
+    required this.dayInCalendarState,
   });
 
   final DateTime dateTime;

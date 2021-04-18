@@ -5,8 +5,8 @@ import 'package:flutter/widgets.dart';
 @immutable
 class EventLine<Event> {
   const EventLine({
-    @required this.horizontalLine,
-    @required this.event,
+    required this.horizontalLine,
+    required this.event,
   });
 
   final HorizontalLine horizontalLine;

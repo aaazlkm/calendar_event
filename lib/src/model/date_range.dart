@@ -4,19 +4,19 @@ import 'package:flutter/cupertino.dart';
 @immutable
 class DateRange {
   const DateRange._({
-    @required this.start,
-    @required this.end,
+    required this.start,
+    required this.end,
   });
 
   const DateRange.day({
-    @required DateTime day,
-  })  : start = day,
+    required DateTime day,
+  })   : start = day,
         end = day;
 
   DateRange.range({
-    DateTime start,
-    DateTime end,
-  })  : start = start.isBefore(end) ? start : end,
+    required DateTime start,
+    required DateTime end,
+  })   : start = start.isBefore(end) ? start : end,
         end = start.isBefore(end) ? end : start;
 
   final DateTime start;

@@ -9,17 +9,17 @@ import 'package:flutter/widgets.dart';
 
 class CalendarMonthView<Event> extends StatelessWidget {
   CalendarMonthView({
-    @required DateTime yearMonth,
-    @required this.events,
-    @required this.eventBuilder,
+    required DateTime yearMonth,
+    required this.events,
+    required this.eventBuilder,
     this.dayTextBuilder,
     this.dayBackgroundBuilder,
     this.calendarDividerBuilder,
-    DayOfWeek startDayOfWeek,
-    List<Holiday> holidays,
-    double dayTextHeight,
-    double eventHeight,
-    Key key,
+    DayOfWeek? startDayOfWeek,
+    List<Holiday>? holidays,
+    double? dayTextHeight,
+    double? eventHeight,
+    Key? key,
   })  : calendarDays = createCalendarDays(
           yearMonth: yearMonth,
           startDayOfWeek: startDayOfWeek ?? kDefaultStartDayOfWeek,
@@ -39,11 +39,11 @@ class CalendarMonthView<Event> extends StatelessWidget {
 
   final double eventHeight;
 
-  final DayTextBuilder dayTextBuilder;
+  final DayTextBuilder? dayTextBuilder;
 
-  final DayBackgroundBuilder dayBackgroundBuilder;
+  final DayBackgroundBuilder? dayBackgroundBuilder;
 
-  final DividerBuilder calendarDividerBuilder;
+  final DividerBuilder? calendarDividerBuilder;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -67,8 +67,8 @@ class CalendarMonthView<Event> extends StatelessWidget {
       );
 
   Widget _buildWeek({
-    @required BuildContext context,
-    @required List<Day> weekDays,
+    required BuildContext context,
+    required List<Day> weekDays,
   }) {
     assert(weekDays.length == DateTime.daysPerWeek, 'week dates length must be ${DateTime.daysPerWeek}');
     return Stack(
@@ -106,8 +106,8 @@ class CalendarMonthView<Event> extends StatelessWidget {
   }
 
   Widget _buildDay({
-    @required BuildContext context,
-    @required Day day,
+    required BuildContext context,
+    required Day day,
   }) =>
       Stack(
         children: [
@@ -125,7 +125,7 @@ class CalendarMonthView<Event> extends StatelessWidget {
       );
 
   Widget _buildDivider({
-    @required BuildContext context,
+    required BuildContext context,
   }) =>
       calendarDividerBuilder?.call(context) ?? const Divider(height: 1);
 }

@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 @immutable
 class Position {
   const Position({
-    @required this.x,
-    @required this.y,
+    required this.x,
+    required this.y,
   });
 
   final int x;

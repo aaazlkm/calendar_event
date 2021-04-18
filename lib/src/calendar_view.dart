@@ -31,18 +31,18 @@ typedef EventBuilder<Event> = Widget Function(BuildContext context, Event event)
 
 class CalendarView<Event> extends StatelessWidget {
   const CalendarView({
-    @required this.yearMonth,
-    @required this.calendarEvents,
-    @required this.eventBuilder,
+    required this.yearMonth,
+    required this.calendarEvents,
+    required this.eventBuilder,
     this.dayOfWeekTextBuilder,
     this.dayTextBuilder,
     this.dayBackgroundBuilder,
     this.calendarDividerBuilder,
-    DayOfWeek startDayOfWeek,
-    double dayTextHeight,
-    double eventHeight,
-    List<Holiday> holidays,
-    Key key,
+    DayOfWeek? startDayOfWeek,
+    double? dayTextHeight,
+    double? eventHeight,
+    List<Holiday>? holidays,
+    Key? key,
   })  : startDayOfWeek = startDayOfWeek ?? kDefaultStartDayOfWeek,
         dayTextHeight = dayTextHeight ?? kDefaultDayTextHeight,
         eventHeight = eventHeight ?? kDefaultEventHeight,
@@ -55,13 +55,13 @@ class CalendarView<Event> extends StatelessWidget {
 
   final EventBuilder<Event> eventBuilder;
 
-  final DayOfWeekTextBuilder dayOfWeekTextBuilder;
+  final DayOfWeekTextBuilder? dayOfWeekTextBuilder;
 
-  final DividerBuilder calendarDividerBuilder;
+  final DividerBuilder? calendarDividerBuilder;
 
-  final DayTextBuilder dayTextBuilder;
+  final DayTextBuilder? dayTextBuilder;
 
-  final DayBackgroundBuilder dayBackgroundBuilder;
+  final DayBackgroundBuilder? dayBackgroundBuilder;
 
   final DayOfWeek startDayOfWeek;
 

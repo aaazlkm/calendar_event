@@ -11,7 +11,7 @@ enum DayOfWeek {
 }
 
 extension DayOfWeekEx on DayOfWeek {
-  static DayOfWeek from({@required DateTime dateTime}) {
+  static DayOfWeek from({required DateTime dateTime}) {
     switch (dateTime.weekday) {
       case DateTime.monday:
         return DayOfWeek.monday;
@@ -37,5 +37,5 @@ extension DayOfWeekEx on DayOfWeek {
     return dayOfWeeks.sublist(index) + dayOfWeeks.sublist(0, index);
   }
 
-  int calculateOffset({@required DayOfWeek to}) => dayOfWeeksStartThis.indexOf(to);
+  int calculateOffset({required DayOfWeek to}) => dayOfWeeksStartThis.indexOf(to);
 }

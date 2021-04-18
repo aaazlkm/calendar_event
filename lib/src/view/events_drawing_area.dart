@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 
 class EventDrawingArea<Event> extends StatelessWidget {
   const EventDrawingArea({
-    @required this.size,
-    @required this.eventHeight,
-    @required this.eventPositionMap,
-    @required this.eventBuilder,
-    Key key,
+    required this.size,
+    required this.eventHeight,
+    required this.eventPositionMap,
+    required this.eventBuilder,
+    Key? key,
   }) : super(key: key);
 
   final Size size;

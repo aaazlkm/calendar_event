@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 @immutable
 class CalendarEvent<T> {
   const CalendarEvent({
-    @required this.value,
-    @required this.dateRange,
+    required this.value,
+    required this.dateRange,
   });
 
   final T value;
