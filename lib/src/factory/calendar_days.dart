@@ -1,4 +1,5 @@
 import 'package:calendar_event/calendar_event.dart';
+import 'package:calendar_event/src/ex/date_time_ex.dart';
 import 'package:calendar_event/src/model/day/day_in_calendar_state.dart';
 import 'package:calendar_event/src/model/holiday.dart';
 
@@ -14,11 +15,12 @@ List<Day> createCalendarDays({
   final weeksPerCalendar = endDateInMonth.difference(startDayInCalendar).inDays ~/ DateTime.daysPerWeek + 1;
   final calendarDates = List.generate(weeksPerCalendar * DateTime.daysPerWeek, (i) => i).map(
     (i) {
-      final date = startDayInCalendar.add(Duration(days: i));
+      final date = startDayInCalendar.addAmount(dayAmount: i);
       return Day(
         dateTime: date,
         holidays: holidays.where((holiday) => DateRange.day(day: date).isInRange(holiday.dateRange)).toList(),
-        dayInCalendarState: yearMonth.month == date.month ? DayInCalendarMonthState.thisMonth : DayInCalendarMonthState.otherMonth,
+        dayInCalendarState:
+            yearMonth.month == date.month ? DayInCalendarMonthState.thisMonth : DayInCalendarMonthState.otherMonth,
       );
     },
   ).toList();
