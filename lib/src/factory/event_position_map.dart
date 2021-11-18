@@ -15,8 +15,8 @@ EventPositionMap<Event> createEventPositionMap<Event>({
   for (final event in eventsInWeek) {
     final startDate = weekDateRange.isInDate(event.dateRange.start) ? event.dateRange.start : weekDateRange.start;
     final endDate = weekDateRange.isInDate(event.dateRange.end) ? event.dateRange.end : weekDateRange.end;
-    final startPositionX = startDate.difference(weekDateRange.start).inDays;
-    final eventWidth = endDate.startDayTime.difference(startDate.startDayTime).inDays + 1;
+    final startPositionX = startDate.startDayTime.difference(weekDateRange.start.startDayTime).inDays;
+    final eventWidth = 1 + endDate.startDayTime.difference(startDate.startDayTime).inDays;
     eventPositionMap.putEventIfAbsent(event, startPositionX, eventWidth);
   }
   return eventPositionMap;
