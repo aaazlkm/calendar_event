@@ -1,7 +1,5 @@
 import 'package:calendar_event/calendar_event.dart';
 import 'package:calendar_event/src/ex/date_time_ex.dart';
-import 'package:calendar_event/src/model/calendar_event.dart';
-import 'package:calendar_event/src/model/day/day.dart';
 import 'package:calendar_event/src/model/eventmap/event_position_map.dart';
 
 EventPositionMap<Event> createEventPositionMap<Event>({

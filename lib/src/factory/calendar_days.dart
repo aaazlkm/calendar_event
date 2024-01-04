@@ -1,7 +1,5 @@
 import 'package:calendar_event/calendar_event.dart';
 import 'package:calendar_event/src/ex/date_time_ex.dart';
-import 'package:calendar_event/src/model/day/day_in_calendar_state.dart';
-import 'package:calendar_event/src/model/holiday.dart';
 
 List<Day> createCalendarDays({
   required DateTime yearMonth,

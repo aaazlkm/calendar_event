@@ -1,5 +1,4 @@
 import 'package:calendar_event/calendar_event.dart';
-import 'package:calendar_event/src/model/day_of_week.dart';
 import 'package:flutter/material.dart';
 
 class DayOfWeeksView extends StatelessWidget {

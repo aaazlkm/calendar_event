@@ -1,7 +1,4 @@
 import 'package:calendar_event/calendar_event.dart';
-import 'package:calendar_event/src/model/day/day_in_calendar_state.dart';
-import 'package:calendar_event/src/model/holiday.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable

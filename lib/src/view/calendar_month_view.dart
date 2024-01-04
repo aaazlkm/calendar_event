@@ -1,11 +1,8 @@
 import 'package:calendar_event/calendar_event.dart';
 import 'package:calendar_event/src/factory/calendar_days.dart';
 import 'package:calendar_event/src/factory/event_position_map.dart';
-import 'package:calendar_event/src/model/calendar_event.dart';
-import 'package:calendar_event/src/model/day/day.dart';
 import 'package:calendar_event/src/view/events_drawing_area.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CalendarMonthView<Event> extends StatelessWidget {
   CalendarMonthView({
