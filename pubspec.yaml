@@ -1,8 +1,6 @@
 name: calendar_event
-description: A new Flutter package.
+description: カレンダービュー表示パッケージ
 version: 0.0.1
-author:
-homepage:
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
