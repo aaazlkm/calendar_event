@@ -1,27 +1,28 @@
 import 'dart:math';
 
 import 'package:calendar_event/calendar_event.dart';
-import 'package:example/model/event.dart';
 import 'package:flutter/material.dart';
+
+import 'model/event.dart';
 
 const colorValue = 300;
 
 List<Color> colors = [
-  Colors.red[colorValue],
-  Colors.pink[colorValue],
-  Colors.purple[colorValue],
-  Colors.deepPurple[colorValue],
-  Colors.indigo[colorValue],
-  Colors.blue[colorValue],
-  Colors.lightBlue[colorValue],
-  Colors.cyan[colorValue],
-  Colors.teal[colorValue],
-  Colors.green[colorValue],
-  Colors.lightGreen[colorValue],
-  Colors.lime[colorValue],
-  Colors.yellow[colorValue],
-  Colors.orange[colorValue],
-  Colors.grey[colorValue],
+  Colors.red[colorValue]!,
+  Colors.pink[colorValue]!,
+  Colors.purple[colorValue]!,
+  Colors.deepPurple[colorValue]!,
+  Colors.indigo[colorValue]!,
+  Colors.blue[colorValue]!,
+  Colors.lightBlue[colorValue]!,
+  Colors.cyan[colorValue]!,
+  Colors.teal[colorValue]!,
+  Colors.green[colorValue]!,
+  Colors.lightGreen[colorValue]!,
+  Colors.lime[colorValue]!,
+  Colors.yellow[colorValue]!,
+  Colors.orange[colorValue]!,
+  Colors.grey[colorValue]!,
 ];
 
 void main() {
@@ -29,7 +30,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App({Key key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -43,7 +44,7 @@ class App extends StatelessWidget {
 }
 
 class CalendarPage extends StatefulWidget {
-  const CalendarPage({Key key}) : super(key: key);
+  const CalendarPage({Key? key}) : super(key: key);
 
   @override
   _CalendarPageState createState() => _CalendarPageState();
@@ -84,7 +85,7 @@ class _CalendarPageState extends State<CalendarPage> {
                         padding: EdgeInsets.all(4),
                         child: Text(
                           day.dateTime.day.toString(),
-                          style: Theme.of(context).textTheme.caption.copyWith(
+                          style: Theme.of(context).textTheme.caption?.copyWith(
                                 color: day.dateTime == DateTime(2021, 1, 30) ? Colors.white : Colors.black,
                               ),
                         ),
@@ -93,7 +94,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   ),
                   dayOfWeekTextBuilder: (context, dayOfWeek) => Text(
                     dayOfWeekText(dayOfWeek),
-                    style: dayOfWeek == DayOfWeek.saturday ? Theme.of(context).textTheme.caption.copyWith(color: Colors.blue) : Theme.of(context).textTheme.caption,
+                    style: dayOfWeek == DayOfWeek.saturday ? Theme.of(context).textTheme.caption?.copyWith(color: Colors.blue) : Theme.of(context).textTheme.caption,
                   ),
                   dayBackgroundBuilder: (_, day) => Material(
                     color: day.dayInCalendarState == DayInCalendarMonthState.thisMonth ? Colors.white : Colors.grey[100],
@@ -145,7 +146,7 @@ class _CalendarPageState extends State<CalendarPage> {
             child: Center(
               child: Text(
                 event.name,
-                style: Theme.of(context).textTheme.caption.copyWith(fontSize: 10, color: Colors.black),
+                style: Theme.of(context).textTheme.caption?.copyWith(fontSize: 10, color: Colors.black),
               ),
             ),
           ),
