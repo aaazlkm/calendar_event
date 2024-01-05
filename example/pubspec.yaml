@@ -14,7 +14,6 @@ dependencies:
   calendar_event:
     path: ../../calendar_event
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

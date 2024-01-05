@@ -1,9 +1,8 @@
 import 'dart:math';
 
 import 'package:calendar_event/calendar_event.dart';
+import 'package:example/model/event.dart';
 import 'package:flutter/material.dart';
-
-import 'model/event.dart';
 
 const colorValue = 300;
 
@@ -34,13 +33,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: const CalendarPage(),
-      );
+    title: 'Flutter Demo'!,
+    theme: ThemeData(
+      primarySwatch: Colors.blue,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+    ),
+    home: const CalendarPage(),
+  );
 }
 
 class CalendarPage extends StatefulWidget {
@@ -55,103 +54,103 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-          child: Column(
+    body: SafeArea(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 40,
+            child: Center(
+              child: Text('${yearMonth.year}年${yearMonth.month}月', style: Theme.of(context).textTheme.headline6),
+            ),
+          ),
+          Expanded(
+            child: CalendarView<Event>(
+              yearMonth: yearMonth,
+              startDayOfWeek: DayOfWeek.monday,
+              calendarEvents: dummyCalendarEvent(DateTime.now()) + dummyCalendarEvent(DateTime.now()) + dummyCalendarEvent(DateTime.now()) + dummyCalendarEvent(DateTime.now()),
+              eventBuilder: buildEvent,
+              eventHeight: 20,
+              dayTextBuilder: (_, day) => Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: day.dateTime == DateTime(2021, 1, 30)
+                        ? Colors.blue
+                        : day.holidays.isEmpty
+                        ? Colors.transparent
+                        : Colors.red,
+                    borderRadius: const BorderRadius.all(Radius.circular(32)),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text(
+                      day.dateTime.day.toString(),
+                      style: Theme.of(context).textTheme.caption?.copyWith(
+                        color: day.dateTime == DateTime(2021, 1, 30) ? Colors.white : Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              dayOfWeekTextBuilder: (context, dayOfWeek) => Text(
+                dayOfWeekText(dayOfWeek),
+                style: dayOfWeek == DayOfWeek.saturday ? Theme.of(context).textTheme.caption?.copyWith(color: Colors.blue) : Theme.of(context).textTheme.caption,
+              ),
+              dayBackgroundBuilder: (_, day) => Material(
+                color: day.dayInCalendarState == DayInCalendarMonthState.thisMonth ? Colors.white : Colors.grey[100],
+                child: InkWell(
+                  onTap: () {},
+                  splashFactory: InkRipple.splashFactory,
+                  child: const Center(),
+                ),
+              ),
+            ),
+          ),
+          Row(
             children: [
-              SizedBox(
-                height: 40,
-                child: Center(
-                  child: Text('${yearMonth.year}年${yearMonth.month}月', style: Theme.of(context).textTheme.headline6),
+              Expanded(
+                child: IconButton(
+                  icon: Icon(Icons.arrow_left),
+                  onPressed: () {
+                    setState(() {
+                      yearMonth = DateTime(yearMonth.year, yearMonth.month - 1);
+                    });
+                  },
                 ),
               ),
               Expanded(
-                child: CalendarView<Event>(
-                  yearMonth: yearMonth,
-                  startDayOfWeek: DayOfWeek.monday,
-                  calendarEvents: dummyCalendarEvent(DateTime.now()) + dummyCalendarEvent(DateTime.now()) + dummyCalendarEvent(DateTime.now()) + dummyCalendarEvent(DateTime.now()),
-                  eventBuilder: buildEvent,
-                  eventHeight: 20,
-                  dayTextBuilder: (_, day) => Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: day.dateTime == DateTime(2021, 1, 30)
-                            ? Colors.blue
-                            : day.holidays.isEmpty
-                                ? Colors.transparent
-                                : Colors.red,
-                        borderRadius: const BorderRadius.all(Radius.circular(32)),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(4),
-                        child: Text(
-                          day.dateTime.day.toString(),
-                          style: Theme.of(context).textTheme.caption?.copyWith(
-                                color: day.dateTime == DateTime(2021, 1, 30) ? Colors.white : Colors.black,
-                              ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  dayOfWeekTextBuilder: (context, dayOfWeek) => Text(
-                    dayOfWeekText(dayOfWeek),
-                    style: dayOfWeek == DayOfWeek.saturday ? Theme.of(context).textTheme.caption?.copyWith(color: Colors.blue) : Theme.of(context).textTheme.caption,
-                  ),
-                  dayBackgroundBuilder: (_, day) => Material(
-                    color: day.dayInCalendarState == DayInCalendarMonthState.thisMonth ? Colors.white : Colors.grey[100],
-                    child: InkWell(
-                      onTap: () {},
-                      splashFactory: InkRipple.splashFactory,
-                      child: const Center(),
-                    ),
-                  ),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_right),
+                  onPressed: () {
+                    setState(() {
+                      yearMonth = DateTime(yearMonth.year, yearMonth.month + 1);
+                    });
+                  },
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_left),
-                      onPressed: () {
-                        setState(() {
-                          yearMonth = DateTime(yearMonth.year, yearMonth.month - 1);
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_right),
-                      onPressed: () {
-                        setState(() {
-                          yearMonth = DateTime(yearMonth.year, yearMonth.month + 1);
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              )
             ],
-          ),
-        ),
-      );
+          )
+        ],
+      ),
+    ),
+  );
 
   Widget buildEvent(BuildContext context, Event event) => IgnorePointer(
-        child: Padding(
-          padding: const EdgeInsets.all(1),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(3)),
-              color: event.color,
-            ),
-            child: Center(
-              child: Text(
-                event.name,
-                style: Theme.of(context).textTheme.caption?.copyWith(fontSize: 10, color: Colors.black),
-              ),
-            ),
+    child: Padding(
+      padding: const EdgeInsets.all(1),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(3)),
+          color: event.color,
+        ),
+        child: Center(
+          child: Text(
+            event.name,
+            style: Theme.of(context).textTheme.caption?.copyWith(fontSize: 10, color: Colors.black),
           ),
         ),
-      );
+      ),
+    ),
+  );
 
   String dayOfWeekText(DayOfWeek datOfWeek) {
     switch (datOfWeek) {
@@ -170,7 +169,6 @@ class _CalendarPageState extends State<CalendarPage> {
       case DayOfWeek.sunday:
         return '日';
     }
-    return '';
   }
 
   List<CalendarEvent<Event>> dummyCalendarEvent(DateTime base) {
@@ -179,7 +177,7 @@ class _CalendarPageState extends State<CalendarPage> {
 
     final ranges = List.generate(
       20,
-      (index) => CalendarEvent<Event>(
+          (index) => CalendarEvent<Event>(
         value: Event('予定$index', colors[Random().nextInt(colors.length)]),
         dateRange: DateRange.range(
           start: DateTime(today.year, today.month, today.day + Random().nextInt(5) - Random().nextInt(5)),
