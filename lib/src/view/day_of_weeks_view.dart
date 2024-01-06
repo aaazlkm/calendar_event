@@ -18,7 +18,7 @@ class DayOfWeeksView extends StatelessWidget {
             .map(
               (dayOfWeek) => Expanded(
                 child: Center(
-                  child: dayOfWeekTextBuilder?.call(context, dayOfWeek) ?? Text(_getDayOfWeekText(dayOfWeek), style: Theme.of(context).textTheme.bodyText2),
+                  child: dayOfWeekTextBuilder?.call(context, dayOfWeek) ?? Text(_getDayOfWeekText(dayOfWeek), style: Theme.of(context).textTheme.bodyMedium),
                 ),
               ),
             )

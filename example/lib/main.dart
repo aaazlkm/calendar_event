@@ -33,7 +33,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'Flutter Demo'!,
+    title: 'Flutter Demo',
     theme: ThemeData(
       primarySwatch: Colors.blue,
       visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -60,7 +60,7 @@ class _CalendarPageState extends State<CalendarPage> {
           SizedBox(
             height: 40,
             child: Center(
-              child: Text('${yearMonth.year}年${yearMonth.month}月', style: Theme.of(context).textTheme.headline6),
+              child: Text('${yearMonth.year}年${yearMonth.month}月', style: Theme.of(context).textTheme.titleLarge),
             ),
           ),
           Expanded(
@@ -84,7 +84,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     padding: EdgeInsets.all(4),
                     child: Text(
                       day.dateTime.day.toString(),
-                      style: Theme.of(context).textTheme.caption?.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: day.dateTime == DateTime(2021, 1, 30) ? Colors.white : Colors.black,
                       ),
                     ),
@@ -93,7 +93,7 @@ class _CalendarPageState extends State<CalendarPage> {
               ),
               dayOfWeekTextBuilder: (context, dayOfWeek) => Text(
                 dayOfWeekText(dayOfWeek),
-                style: dayOfWeek == DayOfWeek.saturday ? Theme.of(context).textTheme.caption?.copyWith(color: Colors.blue) : Theme.of(context).textTheme.caption,
+                style: dayOfWeek == DayOfWeek.saturday ? Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.blue) : Theme.of(context).textTheme.bodySmall,
               ),
               dayBackgroundBuilder: (_, day) => Material(
                 color: day.dayInCalendarState == DayInCalendarMonthState.thisMonth ? Colors.white : Colors.grey[100],
@@ -145,7 +145,7 @@ class _CalendarPageState extends State<CalendarPage> {
         child: Center(
           child: Text(
             event.name,
-            style: Theme.of(context).textTheme.caption?.copyWith(fontSize: 10, color: Colors.black),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10, color: Colors.black),
           ),
         ),
       ),

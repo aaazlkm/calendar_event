@@ -3,11 +3,6 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class DateRange {
-  const DateRange._({
-    required this.start,
-    required this.end,
-  });
-
   const DateRange.day({
     required DateTime day,
   })   : start = day,
