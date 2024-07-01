@@ -30,7 +30,7 @@ void main() {
 
     test('Date Range Test', () {
       final dateRange = DateRange.range(start: DateTime(2021, 5, 30), end: DateTime(2021, 6, 5));
-      final dateRange2 = DateRange.range(start: DateTime(2021, 6, 1), end: DateTime(2021, 6, 10));
+      final dateRange2 = DateRange.range(start: DateTime(2021, 6), end: DateTime(2021, 6, 10));
       assert(dateRange.isInRange(dateRange2) == true, '');
     });
 

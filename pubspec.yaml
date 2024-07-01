@@ -14,3 +14,13 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+
+scripts:
+  # formatする
+  format: .fvm/flutter_sdk/bin/dart fix --apply
+  # analyzeする
+  analyze: fvm flutter analyze . --no-fatal-infos
+  # cache削除
+  clean: fvm flutter clean
+  # test実行
+  test: fvm flutter test
