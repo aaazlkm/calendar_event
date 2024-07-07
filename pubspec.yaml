@@ -6,6 +6,8 @@ environment:
   sdk: ">=3.2.3 <4.0.0"
 
 dependencies:
+  equatable: ^2.0.5
+  collection: ^1.18.0
   flutter:
     sdk: flutter
 
@@ -24,3 +26,15 @@ scripts:
   clean: fvm flutter clean
   # test実行
   test: fvm flutter test
+  # indexGeneratorを実行する
+  indexGenerator: dart pub global run index_generator
+
+# export文を自動生成してくれるパッケージ
+# dart pub global run index_generatorで自動生成してくれる
+# https://pub.dev/packages/index_generator
+index_generator:
+  # Define the paths of the folders in which to generate the index files
+  indexes:
+    - path: lib
+  exclude:
+    - '**/*.freezed.dart'
