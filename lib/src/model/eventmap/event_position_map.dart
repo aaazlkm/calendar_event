@@ -1,8 +1,4 @@
 import 'package:calendar_event/calendar_event.dart';
-import 'package:calendar_event/src/model/calendar_event.dart';
-import 'package:calendar_event/src/model/eventmap/event_line.dart';
-import 'package:calendar_event/src/model/eventmap/horizontal_line.dart';
-import 'package:calendar_event/src/model/eventmap/position.dart';
 
 class EventPositionMap<Event> {
   EventPositionMap({
