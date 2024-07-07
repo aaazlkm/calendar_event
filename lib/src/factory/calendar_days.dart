@@ -16,8 +16,7 @@ List<Day> createCalendarDays({
       return Day(
         dateTime: date,
         holidays: holidays.where((holiday) => DateRange.day(day: date).isInRange(holiday.dateRange)).toList(),
-        dayInCalendarState:
-            yearMonth.month == date.month ? DayInCalendarMonthState.thisMonth : DayInCalendarMonthState.otherMonth,
+        dayInCalendarState: yearMonth.month == date.month ? DayInCalendarMonthState.thisMonth : DayInCalendarMonthState.otherMonth,
       );
     },
   ).toList();
