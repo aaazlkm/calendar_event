@@ -5,7 +5,6 @@ library calendar_event;
 export 'src/calendar_view.dart';
 export 'src/collector/day_builder_collector.dart';
 export 'src/collector/event_builder_collector.dart';
-export 'src/ex/date_time_ex.dart';
 export 'src/factory/calendar_days.dart';
 export 'src/factory/event_position_map.dart';
 export 'src/model/calendar_event.dart';
