@@ -40,6 +40,7 @@ void main() {
 
       // 同じ日付のイベントは同じX位置になるべき
       expect(result.eventLines[0].horizontalLine.startX, 1); // 1月2日は週の2日目
+      expect(result.eventLines[1].horizontalLine.startX, 1); // 1月2日は週の2日目
     });
 
     test('週をまたぐイベントの境界値テスト', () {
