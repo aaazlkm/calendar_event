@@ -1,17 +1,17 @@
-import 'package:calendar_event/src/ex/date_time_ex.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:nifu_flutter_kit/nifu_flutter_kit.dart';
 
 @immutable
 class DateRange {
   const DateRange.day({
     required DateTime day,
-  })   : start = day,
+  })  : start = day,
         end = day;
 
   DateRange.range({
     required DateTime start,
     required DateTime end,
-  })   : start = start.isBefore(end) ? start : end,
+  })  : start = start.isBefore(end) ? start : end,
         end = start.isBefore(end) ? end : start;
 
   final DateTime start;
@@ -24,9 +24,10 @@ class DateRange {
 
   bool get isRange => !isDay;
 
-  bool isInDate(DateTime other) => start.startDayTime.millisecondsSinceEpoch <= other.millisecondsSinceEpoch && other.millisecondsSinceEpoch < end.endDayTime.millisecondsSinceEpoch;
+  bool isInDate(DateTime other) => start.toUtcLeavingDateAndTime().startDayTime.millisecondsSinceEpoch <= other.millisecondsSinceEpoch && other.toUtcLeavingDateAndTime().tomorrowStartDayTime.millisecondsSinceEpoch < end.toUtcLeavingDateAndTime().tomorrowStartDayTime.millisecondsSinceEpoch;
 
-  bool isInRange(DateRange other) => start.startDayTime.millisecondsSinceEpoch <= other.end.millisecondsSinceEpoch && other.start.millisecondsSinceEpoch < end.endDayTime.millisecondsSinceEpoch;
+  bool isInRange(DateRange other) =>
+      start.toUtcLeavingDateAndTime().startDayTime.millisecondsSinceEpoch <= other.end.toUtcLeavingDateAndTime().millisecondsSinceEpoch && other.start.toUtcLeavingDateAndTime().millisecondsSinceEpoch < end.toUtcLeavingDateAndTime().tomorrowStartDayTime.millisecondsSinceEpoch;
 
   @override
   bool operator ==(Object other) => identical(this, other) || (other is DateRange && (other.start == start) && (other.end == end));
