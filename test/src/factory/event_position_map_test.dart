@@ -119,7 +119,7 @@ void main() {
       expect(result.eventLines[3].horizontalLine.startX, 5);
       expect(result.eventLines[3].horizontalLine.width, 2);
 
-      // 次の週のイベント
+      // 次の週のイベント -> 描画されない
     });
 
     test('maxEventDrawnCountVerticallyを超えるイベントの配置テスト', () {
