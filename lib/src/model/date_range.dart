@@ -24,7 +24,7 @@ class DateRange {
 
   bool get isRange => !isDay;
 
-  bool isInDate(DateTime other) => start.toUtcLeavingDateAndTime().startDayTime.millisecondsSinceEpoch <= other.millisecondsSinceEpoch && other.millisecondsSinceEpoch < end.toUtcLeavingDateAndTime().tomorrowStartDayTime.millisecondsSinceEpoch;
+  bool isInDate(DateTime other) => start.toUtcLeavingDateAndTime().startDayTime.millisecondsSinceEpoch <= other.millisecondsSinceEpoch && other.toUtcLeavingDateAndTime().tomorrowStartDayTime.millisecondsSinceEpoch < end.toUtcLeavingDateAndTime().tomorrowStartDayTime.millisecondsSinceEpoch;
 
   bool isInRange(DateRange other) =>
       start.toUtcLeavingDateAndTime().startDayTime.millisecondsSinceEpoch <= other.end.toUtcLeavingDateAndTime().millisecondsSinceEpoch && other.start.toUtcLeavingDateAndTime().millisecondsSinceEpoch < end.toUtcLeavingDateAndTime().tomorrowStartDayTime.millisecondsSinceEpoch;
