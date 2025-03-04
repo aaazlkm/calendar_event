@@ -17,6 +17,13 @@ void main() {
     test('異なるタイムゾーンのイベントでも正しい位置が計算される', () {
       final events = [
         CalendarEvent(
+          value: 'utc',
+          dateRange: DateRange.range(
+            start: DateTime.utc(2024, 1, 2),
+            end: DateTime.utc(2024, 1, 2),
+          ),
+        ),
+        CalendarEvent(
           value: 'jst',
           dateRange: DateRange.range(
             start: DateTime(2024, 1, 2),
