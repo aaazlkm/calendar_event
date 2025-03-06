@@ -12,6 +12,8 @@ class EventBuilderCollector<Event> extends Equatable {
     this.eventHeight = kDefaultEventHeight,
   });
 
+  /// イベントの高さ
+  /// [CalendarEventView.calculateHeight]を使用して計算することを推奨
   final double eventHeight;
 
   final EventBuilder<Event> eventBuilder;

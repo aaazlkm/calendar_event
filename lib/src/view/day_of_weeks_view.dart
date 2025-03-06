@@ -21,33 +21,61 @@ class DayOfWeeksView extends StatelessWidget {
   final DayOfWeekTextBuilder? dayOfWeekTextBuilder;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        height: Theme.of(context).textTheme.bodyMedium!.fontSize! + 2, // padding
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final dayWidth = constraints.maxWidth / DateTime.daysPerWeek;
-            return Stack(
-              clipBehavior: Clip.none, // オーバーフロー時にクリッピングしない設定
-              children: dayOfWeekList
-                  .mapIndexed(
-                    (index, dayOfWeek) => Positioned(
-                      left: dayWidth * index,
-                      top: 0,
-                      width: dayWidth,
-                      height: constraints.maxHeight,
-                      child: Center(
-                        child: dayOfWeekTextBuilder?.call(context, dayOfWeek) ??
-                            Text(
-                              _getDayOfWeekText(dayOfWeek),
-                              style: Theme.of(context).textTheme.bodyMedium,
+  Widget build(BuildContext context) => IntrinsicHeight(
+        child: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              /// 曜日の高さを計算するためのテキスト
+              /// 非表示描画し、DayOfWeeksViewの高さを計算する
+              Visibility(
+                visible: false,
+                maintainAnimation: true,
+                maintainState: true,
+                maintainSize: true,
+                child: _buildDayOfWeekText(
+                  context: context,
+                  dayOfWeek: DayOfWeek.sunday,
+                ),
+              ),
+              Positioned.fill(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final dayWidth = constraints.maxWidth / DateTime.daysPerWeek;
+                    return Stack(
+                      clipBehavior: Clip.none, // オーバーフロー時にクリッピングしない設定
+                      children: dayOfWeekList
+                          .mapIndexed(
+                            (index, dayOfWeek) => Positioned(
+                              left: dayWidth * index,
+                              top: 0,
+                              width: dayWidth,
+                              height: constraints.maxHeight,
+                              child: Center(
+                                  child: _buildDayOfWeekText(
+                                context: context,
+                                dayOfWeek: dayOfWeek,
+                              )),
                             ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            );
-          },
+                          )
+                          .toList(),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
+      );
+
+  Widget _buildDayOfWeekText({
+    required BuildContext context,
+    required DayOfWeek dayOfWeek,
+  }) =>
+      dayOfWeekTextBuilder?.call(context, dayOfWeek) ??
+      Text(
+        _getDayOfWeekText(dayOfWeek),
+        style: Theme.of(context).textTheme.bodyMedium,
       );
 }
 

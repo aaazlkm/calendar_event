@@ -54,56 +54,100 @@ class _CalendarWeekViewStack<Event> extends StatelessWidget {
   final DayBuilderCollector dayBuilderCollector;
 
   @override
-  Widget build(BuildContext context) => LayoutBuilder(
-        builder: (context, constraint) {
-          final dayWidth = constraint.maxWidth / DateTime.daysPerWeek;
-          return Stack(
-            clipBehavior: Clip.none, // オーバーフロー時にクリッピングしない設定
-            children: [
-              ...weekDays
-                  .map(
-                    (day) => Positioned(
-                      left: dayWidth * weekDays.indexOf(day),
-                      top: 0,
-                      width: dayWidth,
-                      height: constraint.maxHeight,
-                      child: _buildDay(context: context, day: day),
-                    ),
-                  )
-                  .toList(),
-              Positioned.fill(
-                child: Padding(
-                  padding: EdgeInsets.only(top: dayBuilderCollector.dayTextHeight), // dayTextにかぶらないように
-                  child: EventDrawingArea<Event>(
-                    size: Size(constraint.maxWidth, constraint.maxHeight),
-                    eventPositionMap: createEventPositionMap<Event>(
-                      weekDays: weekDays,
-                      events: events,
-                      maxEventDrawnCountVertically: (constraint.maxHeight - dayBuilderCollector.dayTextHeight) ~/ eventBuilderCollector.eventHeight, // 描画範囲を超えてイベントを描画しない
-                    ),
-                    eventBuilderCollector: eventBuilderCollector,
+  Widget build(BuildContext context) => Stack(
+        clipBehavior: Clip.none, // オーバーフロー時にクリッピングしない設定
+        children: [
+          // Dayの背景
+          Positioned.fill(
+            child: LayoutBuilder(
+              builder: (context, constraint) {
+                final dayWidth = constraint.maxWidth / DateTime.daysPerWeek;
+                return Stack(
+                  clipBehavior: Clip.none, // オーバーフロー時にクリッピングしない設定
+                  children: [
+                    ...weekDays
+                        .map(
+                          (day) => Positioned(
+                            left: dayWidth * weekDays.indexOf(day),
+                            top: 0,
+                            width: dayWidth,
+                            height: constraint.maxHeight,
+                            child: DayBackground(
+                              day: day,
+                              dayBuilderCollector: dayBuilderCollector,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ],
+                );
+              },
+            ),
+          ),
+          Positioned.fill(
+            child: Column(
+              children: [
+                /// Dayのテキスト
+                IntrinsicHeight(
+                  child: Stack(
+                    children: [
+                      /// 曜日の高さを計算するためのテキスト
+                      /// 非表示描画し、DayOfWeeksViewの高さを計算する
+                      Visibility(
+                        visible: false,
+                        maintainAnimation: true,
+                        maintainState: true,
+                        maintainSize: true,
+                        child: DayText(
+                          day: weekDays.first,
+                          dayBuilderCollector: dayBuilderCollector,
+                        ),
+                      ),
+                      Positioned.fill(
+                        child: LayoutBuilder(
+                          builder: (context, constraint) {
+                            final dayWidth = constraint.maxWidth / DateTime.daysPerWeek;
+                            return Stack(
+                              clipBehavior: Clip.none, // オーバーフロー時にクリッピングしない設定
+                              children: [
+                                ...weekDays
+                                    .map(
+                                      (day) => Positioned(
+                                        left: dayWidth * weekDays.indexOf(day),
+                                        top: 0,
+                                        width: dayWidth,
+                                        height: constraint.maxHeight,
+                                        child: DayText(
+                                          day: day,
+                                          dayBuilderCollector: dayBuilderCollector,
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          );
-        },
-      );
 
-  Widget _buildDay({
-    required BuildContext context,
-    required Day day,
-  }) =>
-      Stack(
-        children: [
-          Positioned.fill(
-            child: dayBuilderCollector.dayBackgroundBuilder?.call(context, day) ?? const SizedBox(),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: SizedBox(
-              height: dayBuilderCollector.dayTextHeight,
-              child: Center(child: dayBuilderCollector.dayTextBuilder?.call(context, day) ?? Text(day.dateTime.day.toString())),
+                /// Event
+                Expanded(
+                  child: LayoutBuilder(
+                    builder: (context, constraint) => EventDrawingArea<Event>(
+                      size: Size(constraint.maxWidth, constraint.maxHeight),
+                      eventPositionMap: createEventPositionMap<Event>(
+                        weekDays: weekDays,
+                        events: events,
+                        maxEventDrawnCountVertically: constraint.maxHeight ~/ eventBuilderCollector.eventHeight, // 描画範囲を超えてイベントを描画しない
+                      ),
+                      eventBuilderCollector: eventBuilderCollector,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -130,52 +174,88 @@ class _CalendarWeekViewRow<Event> extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Stack(
         children: [
-          Positioned.fill(
-            child: Row(
-              children: weekDays
-                  .map(
-                    (day) => Expanded(
-                      child: _buildDay(context: context, day: day),
+          Row(
+            children: weekDays
+                .map(
+                  (day) => Expanded(
+                    child: DayBackground(
+                      day: day,
+                      dayBuilderCollector: dayBuilderCollector,
                     ),
-                  )
-                  .toList(),
-            ),
+                  ),
+                )
+                .toList(),
           ),
-          Positioned.fill(
-            child: Padding(
-              padding: EdgeInsets.only(top: dayBuilderCollector.dayTextHeight), // dayTextにかぶらないように
-              child: LayoutBuilder(
-                builder: (context, constraint) => EventDrawingArea<Event>(
-                  size: Size(constraint.maxWidth, constraint.maxHeight),
-                  eventBuilderCollector: eventBuilderCollector,
-                  eventPositionMap: createEventPositionMap<Event>(
-                    weekDays: weekDays,
-                    events: events,
-                    maxEventDrawnCountVertically: constraint.maxHeight ~/ eventBuilderCollector.eventHeight, // 描画範囲を超えてイベントを描画しない
+          Column(
+            children: [
+              Row(
+                children: weekDays
+                    .map(
+                      (day) => Expanded(
+                        child: DayText(
+                          day: day,
+                          dayBuilderCollector: dayBuilderCollector,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraint) => EventDrawingArea<Event>(
+                    size: Size(constraint.maxWidth, constraint.maxHeight),
+                    eventBuilderCollector: eventBuilderCollector,
+                    eventPositionMap: createEventPositionMap<Event>(
+                      weekDays: weekDays,
+                      events: events,
+                      maxEventDrawnCountVertically: constraint.maxHeight ~/ eventBuilderCollector.eventHeight, // 描画範囲を超えてイベントを描画しない
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
         ],
       );
+}
 
-  Widget _buildDay({
-    required BuildContext context,
-    required Day day,
-  }) =>
-      Stack(
+class DayBackground extends StatelessWidget {
+  const DayBackground({
+    required this.day,
+    required this.dayBuilderCollector,
+    super.key,
+  });
+
+  final Day day;
+
+  final DayBuilderCollector dayBuilderCollector;
+
+  @override
+  Widget build(BuildContext context) => Stack(
         children: [
           Positioned.fill(
             child: dayBuilderCollector.dayBackgroundBuilder?.call(context, day) ?? const SizedBox(),
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: SizedBox(
-              height: dayBuilderCollector.dayTextHeight,
-              child: Center(child: dayBuilderCollector.dayTextBuilder?.call(context, day) ?? Text(day.dateTime.day.toString())),
-            ),
-          ),
         ],
+      );
+}
+
+class DayText extends StatelessWidget {
+  const DayText({
+    required this.day,
+    required this.dayBuilderCollector,
+    super.key,
+  });
+
+  final Day day;
+
+  final DayBuilderCollector dayBuilderCollector;
+
+  @override
+  Widget build(BuildContext context) => ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 20), // 最低の高さを設定
+        child: Center(
+          child: dayBuilderCollector.dayTextBuilder?.call(context, day) ?? Text(day.dateTime.day.toString()),
+        ),
       );
 }

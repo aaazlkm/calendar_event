@@ -17,8 +17,16 @@ class Day {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || (other is Day && (other.dateTime == dateTime) && (listEquals(other.holidays, holidays)) && (other.dayInCalendarState == dayInCalendarState));
+      identical(this, other) ||
+      (other is Day &&
+          (other.dateTime == dateTime) &&
+          (listEquals(other.holidays, holidays)) &&
+          (other.dayInCalendarState == dayInCalendarState));
 
   @override
-  int get hashCode => runtimeType.hashCode ^ dateTime.hashCode ^ holidays.hashCode ^ dayInCalendarState.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      dateTime.hashCode ^
+      holidays.hashCode ^
+      dayInCalendarState.hashCode;
 }
