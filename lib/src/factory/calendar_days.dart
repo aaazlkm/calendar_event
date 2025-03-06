@@ -1,5 +1,5 @@
 import 'package:calendar_event/calendar_event.dart';
-import 'package:nifu_flutter_kit/nifu_flutter_kit.dart';
+import 'package:calendar_event/src/extensions/date_time_ex.dart';
 
 List<Day> createCalendarDays({
   required DateTime yearMonth,

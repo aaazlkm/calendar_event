@@ -10,10 +10,6 @@ dependencies:
   collection: ^1.18.0
   flutter:
     sdk: flutter
-  nifu_flutter_kit:
-    git:
-      url: git@github.com:aaazlkm/nifu-flutter-kit.git
-      ref: v2.0.23
 
 dev_dependencies:
   flutter_test:

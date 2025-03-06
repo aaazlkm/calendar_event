@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:nifu_flutter_kit/nifu_flutter_kit.dart';
+import 'package:calendar_event/src/extensions/date_time_ex.dart';
 
 @immutable
 class DateRange {
