@@ -14,8 +14,17 @@ List<Day> createCalendarDays({
   final endDayOfWeekInCalendar = startDayOfWeek.previous; // カレンダー内で表示される最後の曜日
   final nextMonthDays = endDayOfWeekInMonth.calculateOffset(to: endDayOfWeekInCalendar); // カレンダー内で表示される次の月の日数
   final addExtraWeek = nextMonthDays <= 2 ? 1 : 0; // 余分に追加する週数。次の月の日数が2以下の場合fabと被るため、余分な週を追加する
+  final diff = endDateInMonth
+      .addDate(day: 1) // endDateInMonthの分の日付も含めるため
+      .toLocalLeavingDateAndTime()
+      .difference(startDayInCalendar.toLocalLeavingDateAndTime());
   // 週数
-  final weeksPerCalendar = (endDateInMonth.toLocalLeavingDateAndTime().difference(startDayInCalendar.toLocalLeavingDateAndTime()).inDays ~/ DateTime.daysPerWeek + 1) + addExtraWeek;
+  final weeksPerCalendar = (diff.inDays ~/ DateTime.daysPerWeek) +
+      // 切り捨てた場合は、その分一週間増やす
+      (diff.inDays % DateTime.daysPerWeek > 0 ? 1 : 0) +
+      // 余分な週数
+      addExtraWeek;
+
   final calendarDates = List.generate(weeksPerCalendar * DateTime.daysPerWeek, (i) => i).map(
     (i) {
       final date = startDayInCalendar.addDate(day: i);
